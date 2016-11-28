@@ -6,3 +6,11 @@ body {
 a {
   color: #00B7FF;
 }
+.background{
+    background-color: lightblue;
+}
+
+.titel {
+    color: navy;
+    margin-left: 20px;
+}
