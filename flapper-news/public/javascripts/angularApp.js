@@ -1,11 +1,26 @@
 var app = angular.module('flapperNews', ['ui.router']);
 
-app.factory('posts', [function(){
+app.factory('posts', ['$http',function($http){
 	var o = {
 		posts: []
 	};
+
+o.getAll = function() {
+    return $http.get('/posts').success(function(data){
+      angular.copy(data, o.posts);
+    });
+  };
+
+  o.create = function(post){
+	  return $http.post('/posts', post).success(function(data){
+		  o.posts.push(data);
+	  });
+  };
+
 	return o;
 }]);
+
+  
 
 app.controller('MainCtrl', [
 '$scope',
@@ -18,7 +33,10 @@ function($scope, posts){
 	
 	$scope.addPost = function(){
 		if(!$scope.title || $scope.title === ''){return;}
-		$scope.posts.push({title: $scope.title, link: $scope.link, upvotes: 0});
+		posts.create({
+			title: $scope.title,
+			link: $scope.link,
+		});
 		$scope.title = '';
 		$scope.link = '';
 	};
@@ -65,8 +83,13 @@ app.config([
 '$urlRouterProvider',
 function($stateProvider, $urlRouterProvider){
 	$stateProvider.state('home', {
-		url: '/home', templateUrl: '/home.html', controller: 'MainCtrl'
-	});
+		url: '/home', templateUrl: '/home.html', controller: 'MainCtrl',
+		resolve: {
+			postPromise: ['posts', function(posts){
+				return posts.getAll();
+			}]
+		}
+	})
 	
 	$stateProvider.state('posts', {
 		url: '/posts/{id}',
