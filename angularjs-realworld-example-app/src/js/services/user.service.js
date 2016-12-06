@@ -1,14 +1,13 @@
 export default class User {
-    constructor(AppConstants, $http){
+    constructor(AppConstants, $http) {
         'ngInject';
-        
+
         this._AppConstants = AppConstants;
         this._$http = $http;
 
-        this.current = null; //when u start it, nobody will be logged in
+        this.current = null;
     }
-
-    attemptAuth(type, credentials){
+    attemptAuth(type, credentials) {
         let route = (type === 'login') ? '/login' : '';
         return this._$http({
             url: this._AppConstants.api + '/users' + route,
@@ -22,7 +21,6 @@ export default class User {
 
                 return res;
             }
-        )
+        );
     }
-
 }
