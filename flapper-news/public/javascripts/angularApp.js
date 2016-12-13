@@ -1,6 +1,5 @@
 var app = angular.module('flapperNews', ['ui.router']);
 
-
 app.factory('posts', ['$http', 'auth', function($http, auth){
   var o = {
     posts: []
