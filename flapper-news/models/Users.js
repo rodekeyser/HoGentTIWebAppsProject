@@ -1,8 +1,11 @@
-var mongoose = require('mongoose');
+//var mongoose = require('mongoose');
+var pg = require('pg');
+
 var crypto = require('crypto');
 var jwt = require('jsonwebtoken');
 
-var UserSchema = new mongoose.Schema({
+//var UserSchema = new mongoose.Schema({
+  var UserSchema = new pg.Schema({
   username: {type: String, lowercase: true, unique: true},
   hash: String,
   salt: String
@@ -34,5 +37,5 @@ UserSchema.methods.generateJWT = function()
     exp: parseInt(exp.getTime() / 1000)
   }, 'SECRET');
 };
-
-mongoose.model('User', UserSchema);
+pg.model('User', UserSchema);
+//mongoose.model('User', UserSchema);
