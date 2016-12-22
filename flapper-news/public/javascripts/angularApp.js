@@ -125,6 +125,7 @@ app.controller('MainCtrl', [
       posts.upvote(post);
     };
 }]);
+
 app.controller('PostsCtrl',[
   '$scope',
   'posts',
@@ -150,13 +151,7 @@ app.controller('PostsCtrl',[
        $scope.incrementUpvotes = function(comment){
          posts.upvoteComment(post, comment);
        };
-  }])
-  .directive('myPost', function() {
-    return {
-     restrict: 'E',
-     templateUrl: 'my-post.ejs'
-    };
-  });
+  }]);
 
   app.controller('AuthCtrl', [
     '$scope',
@@ -191,6 +186,39 @@ app.controller('PostsCtrl',[
       $scope.logOut = auth.logOut;
     }
   ]);
+
+app.controller('AuthCtrl', [
+  '$scope',
+  '$state',
+  'auth',
+  function($scope, $state, auth){
+    $scope.user = {};
+
+    $scope.register = function(){
+      auth.register($scope.user).error(function(error){
+        $scope.error = error;
+      }).then(function(){
+        $state.go('home');
+      });
+    };
+
+    $scope.logIn = function(){
+      auth.logIn($scope.user).error(function(error){
+        $scope.error = error;
+      }).then(function(){
+        $state.go('home');
+      });
+    };
+  }]);
+
+app.controller('NavCtrl', [
+  '$scope',
+  'auth',
+  function($scope, auth){
+    $scope.isLoggedIn = auth.isLoggedIn;
+    $scope.currentUser = auth.currentUser;
+    $scope.logOut = auth.logOut;
+  }]);
 
   app.config([
   '$stateProvider',
