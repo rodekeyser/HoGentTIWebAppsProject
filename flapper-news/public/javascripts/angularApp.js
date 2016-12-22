@@ -156,7 +156,7 @@ app.controller('PostsCtrl',[
   return {
       restrict: 'AE',
       replace: 'true',
-      template: '<h3>Hello World!! Here is my post: {{post.title}}</h3>'
+      template: '<h3>Hello World!! Here is my post: {{post.title}} and it already has {{post.upvotes}} likes!!</h3>'
   };
 });
 
