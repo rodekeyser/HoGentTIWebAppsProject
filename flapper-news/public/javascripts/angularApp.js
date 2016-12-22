@@ -152,13 +152,11 @@ app.controller('PostsCtrl',[
          posts.upvoteComment(post, comment);
        };
   }])
-  
-  ;
-app.directive('helloWorld', function() {
+  .directive('helloWorld', function() {
   return {
       restrict: 'AE',
       replace: 'true',
-      template: '<h3>Hello World!!</h3>'
+      template: '<h3>Hello World!! Here is my post: {{post.title}}</h3>'
   };
 });
 
