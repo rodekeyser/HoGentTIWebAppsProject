@@ -151,8 +151,16 @@ app.controller('PostsCtrl',[
        $scope.incrementUpvotes = function(comment){
          posts.upvoteComment(post, comment);
        };
-  }]);
-
+  }])
+  
+  ;
+app.directive('helloWorld', function() {
+  return {
+      restrict: 'AE',
+      replace: 'true',
+      template: '<h3>Hello World!!</h3>'
+  };
+});
 
 app.controller('AuthCtrl', [
   '$scope',
